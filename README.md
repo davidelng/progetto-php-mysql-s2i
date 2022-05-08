@@ -2,6 +2,7 @@
 
 ## Descrizione
 
+**ANCORA IN WIP**
 Il progetto prevedere la creazione di un'API RESTful con funzionalità CRUD.
 
 ## Testing
