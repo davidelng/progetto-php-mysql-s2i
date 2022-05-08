@@ -4,15 +4,6 @@ class Database
 {
     protected $connection;
 
-    // protected
-    //     $connection,
-    //     $connectionOpen = false;
-
-    // function isConnectionOpen()
-    // {
-    //     return $this->connectionOpen;
-    // }
-
     function getConnection()
     {
         return $this->connection;
@@ -27,11 +18,15 @@ class Database
                 $config['password'],
                 $config['options']
             );
-            // $this->connectionOpen = true;
         } catch (PDOException $e) {
-            // $this->connectionOPen = false;
             echo 'Connection error: ' . $e->getMessage();
             exit;
         }
     }
+
+    // function buildQuery($sql, $parameters)
+    // {
+    //     $st = $this->pdo->gertCOnnection()->prepare($sql);
+    //     $st->execute($parameters);
+    // }
 }

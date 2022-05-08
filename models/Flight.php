@@ -28,7 +28,7 @@ class Flight
         var_dump($st->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    function selectByCity()
+    function selectByCity($city)
     {
         $sql = "
         SELECT
@@ -39,15 +39,16 @@ class Flight
         FROM flights
         LEFT JOIN cities c1 ON c1.id = flights.departure
         LEFT JOIN cities c2 ON c2.id = flights.arrival
-        WHERE c1.name = 'Roma' OR c2.name = 'Roma'
+        WHERE c1.name = :name OR c2.name = :name
         ;";
         $st = $this->pdo->getConnection()->prepare($sql);
-        $st->execute();
+        $params = array('name' => $city);
+        $st->execute($params);
         // $st->fetchAll(PDO::FETCH_ASSOC);
         var_dump($st->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    function selectBySeats()
+    function selectBySeats($num)
     {
         $sql = "
         SELECT
@@ -58,38 +59,52 @@ class Flight
         FROM flights
         LEFT JOIN cities c1 ON c1.id = flights.departure
         LEFT JOIN cities c2 ON c2.id = flights.arrival
-        HAVING flights.availableSeats >= 30
+        HAVING flights.availableSeats >= :seats
         ;";
         $st = $this->pdo->getConnection()->prepare($sql);
-        $st->execute();
+        $params = array('seats' => $num);
+        $st->execute($params);
         // $st->fetchAll(PDO::FETCH_ASSOC);
         var_dump($st->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    function create()
+    function create(array $data)
     {
-        $sql = "INSERT INTO flights (departure, arrival, availableSeats) VALUES (3, 7, 18)";
+        $sql = "
+            INSERT INTO flights (
+                departure, 
+                arrival, 
+                availableSeats) 
+            VALUES (
+                :departure, 
+                :arrival, 
+                :availableSeats
+            )";
         $st = $this->pdo->getConnection()->prepare($sql);
-        $st->execute();
+        $params = array(
+            'departure' => $data['departure'],
+            'arrival' => $data['arrival'],
+            'availableSeats' => $data['availableSeats']
+        );
+        $st->execute($params);
     }
 
-    function update()
+    function update($id, array $data)
     {
         $sql = "
             UPDATE flights 
-            SET 
-                departure = 3, 
-                arrival = 2, 
-                availableSeats = 14 
-            WHERE id = 5";
+            SET availableSeats = :seats 
+            WHERE id = :id";
         $st = $this->pdo->getConnection()->prepare($sql);
-        $st->execute();
+        $params = array('id' => $id, 'seats' => $data['availableSeats']);
+        $st->execute($params);
     }
 
-    function delete()
+    function delete($id)
     {
-        $sql = "DELETE FROM flights WHERE id = 5";
+        $sql = "DELETE FROM flights WHERE id = :id";
         $st = $this->pdo->getConnection()->prepare($sql);
-        $st->execute();
+        $params = array('id' => $id);
+        $st->execute($params);
     }
 }

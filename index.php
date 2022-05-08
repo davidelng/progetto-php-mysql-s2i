@@ -15,8 +15,8 @@ $test = new Flight($db);
 // $test->create();
 // $test->update();
 // $test->delete();
-// $test->selectByCity();
-// $test->selectBySeats();
+// $test->selectByCity('Roma');
+// $test->selectBySeats(30);
 $test->selectAll();
 ?>
 </pre>

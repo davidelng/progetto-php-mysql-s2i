@@ -17,24 +17,27 @@ class City
         var_dump($st->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    function create()
+    function create(array $data)
     {
-        $sql = "INSERT INTO cities (name) VALUES ('Bruxelles');";
+        $sql = "INSERT INTO cities (name) VALUES (:name);";
         $st = $this->pdo->getConnection()->prepare($sql);
-        $st->execute();
+        $params = array('name' => $data['name']);
+        $st->execute($params);
     }
 
-    function update()
+    function update($id, array $data)
     {
-        $sql = "UPDATE cities SET name = 'Palermo' WHERE id = 8;";
+        $sql = "UPDATE cities SET name = :name WHERE id = :id;";
         $st = $this->pdo->getConnection()->prepare($sql);
-        $st->execute();
+        $params = array('id' => $id, 'name' => $data['name']);
+        $st->execute($params);
     }
 
-    function delete()
+    function delete($id)
     {
-        $sql = "DELETE FROM cities WHERE id = 8;";
+        $sql = "DELETE FROM cities WHERE id = :id;";
         $st = $this->pdo->getConnection()->prepare($sql);
-        $st->execute();
+        $params = array('id' => $id);
+        $st->execute($params);
     }
 }
