@@ -1,24 +1,40 @@
 <?php
 
-include_once 'core/bootstrap.php';
+// include_once 'core/bootstrap.php';
 
-$db = new Database();
-$db->openConnection($dbconfig);
+// $request = new Request;
+// $request->decodeHttpRequest();
 
-$request = new Request;
-$data = $request->getBody();
+// $db = new Database();
+// $db->openConnection($dbconfig);
 
-?>
-
-<pre>
-<?php
-$test = new City($db);
+// $test = new City($db);
 // $test = new Flight($db);
 // $test->create();
 // $test->update();
 // $test->delete();
 // $test->selectByCity();
 // $test->selectBySeats();
-$test->selectAll();
-?>
-</pre>
+// $test->selectAll();
+
+// $routes = include_once('routes.php');
+// $path = trim($_SERVER['REQUEST_URI'], '/');
+// $method =  $_SERVER['REQUEST_METHOD'];
+
+// if (array_key_exists($path, $routes[$method])) {
+//     require $routes[$method][$path];
+// } else {
+//     http_response_code(404);
+//     echo json_encode(array("message" => "Route inesistente."));
+// }
+
+include_once 'core/Router.php';
+include_once 'core/Request.php';
+$routes = include_once 'routes.php';
+
+$request = new Request;
+$request->decodeHttpRequest();
+
+$router = new Router;
+$router->load($routes);
+$router->direct($request->getPath(), $request->getMethod());

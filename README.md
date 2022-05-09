@@ -2,7 +2,7 @@
 
 ## Descrizione
 
-**ANCORA IN WIP**
+**ANCORA WIP**
 Il progetto prevedere la creazione di un'API RESTful con funzionalità CRUD.
 
 ## Testing
@@ -23,15 +23,21 @@ Una volta clonato il progetto e il DB, avviati i corrispettivi server, è possib
     "name": "nomeNuovaCittà"
   }
   ```
-- **PUT** /cities/:id = permette la modifica di una città inserendo il corrispettivo id nell'url e nel body
+- **PUT** /cities = permette la modifica di una città inserendo nel body
 
   ```json
   {
+    "id": "idCittàDaModificare",
     "name": "nomeCittàModificato"
   }
   ```
 
-- **DELETE** /cities/:id = permette di cancellare una città inserendo il corrispettivo id nell'url
+- **DELETE** /cities = permette di cancellare una città inserendo l'id nel body
+  ```json
+  {
+    "id": "idCittàDaEliminare"
+  }
+  ```
 
 ### Routing per l'entità **flights**:
 

@@ -14,7 +14,15 @@ class City
         $sql = "SELECT cities.id, cities.name FROM cities;";
         $st = $this->pdo->getConnection()->prepare($sql);
         $st->execute();
-        var_dump($st->fetchAll(PDO::FETCH_ASSOC));
+        if ($st->execute()) {
+            $rows = array();
+            while (($row = $st->fetch(PDO::FETCH_ASSOC)) !== false) {
+                $rows[] = $row;
+            }
+            return $rows;
+        } else {
+            return false;
+        }
     }
 
     function create(array $data)
@@ -22,22 +30,28 @@ class City
         $sql = "INSERT INTO cities (name) VALUES (:name);";
         $st = $this->pdo->getConnection()->prepare($sql);
         $params = array('name' => $data['name']);
-        $st->execute($params);
+        if ($st->execute($params)) {
+            return true;
+        }
     }
 
-    function update($id, array $data)
+    function update(array $data)
     {
         $sql = "UPDATE cities SET name = :name WHERE id = :id;";
         $st = $this->pdo->getConnection()->prepare($sql);
-        $params = array('id' => $id, 'name' => $data['name']);
-        $st->execute($params);
+        $params = array('id' => $data['id'], 'name' => $data['name']);
+        if ($st->execute($params)) {
+            return true;
+        }
     }
 
-    function delete($id)
+    function delete(array $data)
     {
         $sql = "DELETE FROM cities WHERE id = :id;";
         $st = $this->pdo->getConnection()->prepare($sql);
-        $params = array('id' => $id);
-        $st->execute($params);
+        $params = array('id' => $data['id']);
+        if ($st->execute($params)) {
+            return true;
+        }
     }
 }
