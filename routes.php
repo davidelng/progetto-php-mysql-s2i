@@ -4,8 +4,8 @@ return $routes = [
     'GET' => [
         'cities' => 'controllers/cities/read.php',
         'flights' => 'controllers/flights/read.php',
-        'flights/cities' => 'controllers/flights/filter.php',
-        "flights/seats" => 'controllers/flights/filter.php'
+        'flights/cities' => 'controllers/flights/filters.php',
+        "flights/seats" => 'controllers/flights/filters.php'
     ],
     'POST' => [
         'cities' => 'controllers/cities/create.php',

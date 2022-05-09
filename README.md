@@ -2,8 +2,7 @@
 
 ## Descrizione
 
-**ANCORA WIP**
-Il progetto prevedere la creazione di un'API RESTful con funzionalità CRUD.
+Il progetto prevedere la creazione di un'API RESTful con funzionalità CRUD. Nello specifico, l'applicazione permette di inserire, visualizzare,modificare e cancellare nel database delle città e dei voli tra queste con il relativo numero di posti.
 
 ## Testing
 
@@ -41,9 +40,23 @@ Una volta clonato il progetto e il DB, avviati i corrispettivi server, è possib
 
 ### Routing per l'entità **flights**:
 
-- **GET** /flights = ritorna una lista di tutti i voli
-- **GET** /flights/cities/:name = ritorna una lista di tutti i voli con la città inserita nell'url
-- **GET** /flights/seats/:num = ritorna una lista di tutti i voli con un numero di posti maggiore o uguale al numero specificato nell'url
+- **GET** /flights = ritorna una lista di tutti i voli, in ordine ascendente per numero di posti disponibili
+- **GET** /flights/cities = ritorna una lista di tutti i voli con la città inserita nel body
+
+  ```json
+  {
+    "name": "cittàInteressata"
+  }
+  ```
+
+- **GET** /flights/seats = ritorna una lista di tutti i voli con un numero di posti maggiore o uguale al numero specificato
+
+  ```json
+  {
+    "availableSeats": "numeroPostiDisponibili"
+  }
+  ```
+
 - **POST** /flights = permette di inserire un nuovo volo inserendo nel body
   ```json
   {
@@ -52,12 +65,19 @@ Una volta clonato il progetto e il DB, avviati i corrispettivi server, è possib
     "availableSeats": "numeroPostiDisponibili"
   }
   ```
-- **PUT** /flights/:id = permette di modificare il volo associato all'id specificato nell'url inserendo nel body
+- **PUT** /flights = permette di modificare un volo inserendo nel body
 
   ```json
   {
+    "id": "idVoloDaModificare",
     "availableSeats": "numeroPostiDisponibili"
   }
   ```
 
-- **DELETE** /flights/:id = permette di cancellare il volo associato all'id specificato nell'url
+- **DELETE** /flights = permette di cancellare il volo associato all'id specificato nel body
+
+  ```json
+  {
+    "id": "idVoloDaCancellare"
+  }
+  ```

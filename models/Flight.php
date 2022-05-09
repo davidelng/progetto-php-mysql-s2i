@@ -23,12 +23,18 @@ class Flight
         ORDER BY flights.availableSeats ASC
         ;";
         $st = $this->pdo->getConnection()->prepare($sql);
-        $st->execute();
-        // $st->fetchAll(PDO::FETCH_ASSOC);
-        var_dump($st->fetchAll(PDO::FETCH_ASSOC));
+        if ($st->execute()) {
+            $rows = array();
+            while (($row = $st->fetch(PDO::FETCH_ASSOC)) !== false) {
+                $rows[] = $row;
+            }
+            return $rows;
+        } else {
+            return false;
+        }
     }
 
-    function selectByCity($city)
+    function selectByCity(array $data)
     {
         $sql = "
         SELECT
@@ -42,13 +48,19 @@ class Flight
         WHERE c1.name = :name OR c2.name = :name
         ;";
         $st = $this->pdo->getConnection()->prepare($sql);
-        $params = array('name' => $city);
-        $st->execute($params);
-        // $st->fetchAll(PDO::FETCH_ASSOC);
-        var_dump($st->fetchAll(PDO::FETCH_ASSOC));
+        $params = array('name' => $data['name']);
+        if ($st->execute($params)) {
+            $rows = array();
+            while (($row = $st->fetch(PDO::FETCH_ASSOC)) !== false) {
+                $rows[] = $row;
+            }
+            return $rows;
+        } else {
+            return false;
+        }
     }
 
-    function selectBySeats($num)
+    function selectBySeats(array $data)
     {
         $sql = "
         SELECT
@@ -62,10 +74,16 @@ class Flight
         HAVING flights.availableSeats >= :seats
         ;";
         $st = $this->pdo->getConnection()->prepare($sql);
-        $params = array('seats' => $num);
-        $st->execute($params);
-        // $st->fetchAll(PDO::FETCH_ASSOC);
-        var_dump($st->fetchAll(PDO::FETCH_ASSOC));
+        $params = array('seats' => $data['availableSeats']);
+        if ($st->execute($params)) {
+            $rows = array();
+            while (($row = $st->fetch(PDO::FETCH_ASSOC)) !== false) {
+                $rows[] = $row;
+            }
+            return $rows;
+        } else {
+            return false;
+        }
     }
 
     function create(array $data)
@@ -86,25 +104,31 @@ class Flight
             'arrival' => $data['arrival'],
             'availableSeats' => $data['availableSeats']
         );
-        $st->execute($params);
+        if ($st->execute($params)) {
+            return true;
+        }
     }
 
-    function update($id, array $data)
+    function update(array $data)
     {
         $sql = "
             UPDATE flights 
             SET availableSeats = :seats 
             WHERE id = :id";
         $st = $this->pdo->getConnection()->prepare($sql);
-        $params = array('id' => $id, 'seats' => $data['availableSeats']);
-        $st->execute($params);
+        $params = array('id' => $data['id'], 'seats' => $data['availableSeats']);
+        if ($st->execute($params)) {
+            return true;
+        }
     }
 
-    function delete($id)
+    function delete(array $data)
     {
         $sql = "DELETE FROM flights WHERE id = :id";
         $st = $this->pdo->getConnection()->prepare($sql);
-        $params = array('id' => $id);
-        $st->execute($params);
+        $params = array('id' => $data['id']);
+        if ($st->execute($params)) {
+            return true;
+        }
     }
 }
