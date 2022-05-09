@@ -2,7 +2,7 @@
 
 ## Descrizione
 
-Il progetto prevedere la creazione di un'API RESTful con funzionalità CRUD. Nello specifico, l'applicazione permette di inserire, visualizzare,modificare e cancellare nel database delle città e dei voli tra queste con il relativo numero di posti.
+Il progetto prevedere la creazione di un'API RESTful con funzionalità CRUD. Nello specifico, l'applicazione deve permettere la lettura, l'inserimento, la modifica e la cancellazione dei dati nel database. I dati fanno riferimento a dei paesi e a dei voli fra questi con relativo numero di posti disponibili.
 
 ## Testing
 
@@ -15,14 +15,14 @@ Una volta clonato il progetto e il DB, avviati i corrispettivi server, è possib
 
 ### Routing per l'entità **cities**:
 
-- **GET** /cities = ritorna una lista di tutte le città
-- **POST** /cities = permette di inserire una città inserendo nel body
+- **GET /cities** = ritorna una lista di tutte le città
+- **POST /cities** = permette di inserire una città inserendo nel body
   ```json
   {
     "name": "nomeNuovaCittà"
   }
   ```
-- **PUT** /cities = permette la modifica di una città inserendo nel body
+- **PUT /cities** = permette la modifica di una città inserendo nel body
 
   ```json
   {
@@ -31,7 +31,7 @@ Una volta clonato il progetto e il DB, avviati i corrispettivi server, è possib
   }
   ```
 
-- **DELETE** /cities = permette di cancellare una città inserendo l'id nel body
+- **DELETE /cities** = permette di cancellare una città inserendo l'id nel body
   ```json
   {
     "id": "idCittàDaEliminare"
@@ -40,8 +40,8 @@ Una volta clonato il progetto e il DB, avviati i corrispettivi server, è possib
 
 ### Routing per l'entità **flights**:
 
-- **GET** /flights = ritorna una lista di tutti i voli, in ordine ascendente per numero di posti disponibili
-- **GET** /flights/cities = ritorna una lista di tutti i voli con la città inserita nel body
+- **GET /flights** = ritorna una lista di tutti i voli, in ordine ascendente per numero di posti disponibili
+- **GET /flights/cities** = ritorna una lista di tutti i voli con la città inserita nel body
 
   ```json
   {
@@ -49,7 +49,7 @@ Una volta clonato il progetto e il DB, avviati i corrispettivi server, è possib
   }
   ```
 
-- **GET** /flights/seats = ritorna una lista di tutti i voli con un numero di posti maggiore o uguale al numero specificato
+- **GET /flights/seats** = ritorna una lista di tutti i voli con un numero di posti maggiore o uguale al numero specificato
 
   ```json
   {
@@ -57,7 +57,7 @@ Una volta clonato il progetto e il DB, avviati i corrispettivi server, è possib
   }
   ```
 
-- **POST** /flights = permette di inserire un nuovo volo inserendo nel body
+- **POST /flights** = permette di inserire un nuovo volo inserendo nel body
   ```json
   {
     "departure": "idCittàPartenza",
@@ -65,7 +65,7 @@ Una volta clonato il progetto e il DB, avviati i corrispettivi server, è possib
     "availableSeats": "numeroPostiDisponibili"
   }
   ```
-- **PUT** /flights = permette di modificare un volo inserendo nel body
+- **PUT /flights** = permette di modificare un volo inserendo nel body
 
   ```json
   {
@@ -74,7 +74,7 @@ Una volta clonato il progetto e il DB, avviati i corrispettivi server, è possib
   }
   ```
 
-- **DELETE** /flights = permette di cancellare il volo associato all'id specificato nel body
+- **DELETE /flights** = permette di cancellare il volo associato all'id specificato nel body
 
   ```json
   {
